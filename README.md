@@ -2,6 +2,8 @@
 
 An end-to-end automation workflow built with **Make.com**, **Airtable**, and **OpenAI**. It automatically transforms raw database records added to Airtable into beautifully formatted, responsive HTML emails generated dynamically by GPT models and delivers them to recipients.
 
+![Dashboard Preview](screenshots/scenario-make.png)
+
 ---
 
 ## 🚀 Overview & Business Impact
