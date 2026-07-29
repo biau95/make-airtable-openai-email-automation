@@ -6,8 +6,6 @@ An end-to-end automation workflow built with **Make.com**, **Airtable**, and **O
 
 ## 🚀 Overview & Business Impact
 
-Manual email drafting or sending unstyled, raw database notifications leads to poor user engagement and looks unprofessional. 
-
 This automation:
 - Monitoring **Airtable** for new or updated records.
 - Sending record metadata to **OpenAI API** with a strictly enforced HTML design system prompt.
