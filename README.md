@@ -85,7 +85,6 @@ Return ONLY the raw HTML code without any markdown formatting, code blocks, or e
 └── assets/                 # Screenshots & visual proof
     ├── scenario-make.png   # Make.com scenario visual
     ├── airtable-base.png   # Sample Airtable schema
-    └── email-preview.png   # Before vs. After HTML email preview
 ```
 
 ---
