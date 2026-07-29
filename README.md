@@ -8,7 +8,7 @@ An end-to-end automation workflow built with **Make.com**, **Airtable**, and **O
 
 Manual email drafting or sending unstyled, raw database notifications leads to poor user engagement and looks unprofessional. 
 
-This automation solves that problem by:
+This automation:
 - Monitoring **Airtable** for new or updated records.
 - Sending record metadata to **OpenAI API** with a strictly enforced HTML design system prompt.
 - Dynamically generating responsive, beautifully styled HTML emails with proper typography, CTA buttons, and structured lists.
@@ -20,7 +20,7 @@ This automation solves that problem by:
 
 - **Workflow Automation:** [Make.com](https://www.make.com/)
 - **Database:** [Airtable](https://airtable.com/)
-- **AI / LLM Engine:** [OpenAI API](https://platform.openai.com/) (GPT-4o / GPT-3.5-Turbo)
+- **AI / LLM Engine:** [OpenAI API](https://platform.openai.com/) (GPT-5o)
 - **Email Service:** Gmail / SMTP Email Module via Make.com
 
 ---
@@ -75,7 +75,7 @@ Formatting rules:
 ## 🔧 How to Set Up
 
 1. **Airtable Setup:**
-   - Create a base with fields: `Name`, `Email`, `Details`, `Status`.
+   - Create a base with proper fields.
    - Create a view filtered for unprocessed records.
 
 2. **Make.com Scenario Import:**
