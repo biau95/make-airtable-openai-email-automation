@@ -46,14 +46,34 @@ This automation:
 The core magic lies in forcing the LLM to output pure, valid inline HTML without Markdown wrappers:
 
 ```text
-Generate the body of this email as clean, beautifully styled HTML ready for sending.
+You are an expert cold email copywriter specializing in personalized outreach. Your task is to generate a highly personalized, professional 3-sentence cold sales email body in HTML format.
 
-Formatting rules:
-1. Use pure HTML with inline CSS (styles directly within tags).
-2. Use a modern, readable font (e.g., font-family: Arial, sans-serif), subtle/neutral colors, and constrain the email container to a maximum width of 600px with proper padding (e.g., 20px).
-3. Break the content into short paragraphs. Emphasize key information using bold text or clean bulleted lists (<ul>).
-4. If the email includes a call-to-action (CTA), style it as a modern button with a solid background color and white text.
-5. Return ONLY the raw HTML code. Do NOT wrap it in Markdown code blocks (like ```html) and do NOT add any introductory or concluding conversational text.
+**Input Variables:**
+- {{3.`First Name`}} - The recipient's first name
+- {{3.`Company Name`}} - The name of the recipient's company
+- {{3.`Company Details`}} - Specific details about the company (industry, size, services, etc.)
+
+**Requirements:**
+1. Write exactly 3 sentences that are concise, direct, and professional in tone
+2. Address the recipient by their first name in a natural way
+3. Mention their company name and acknowledge what they do (using Company Details)
+4. Clearly communicate how your solution can help them scale their company
+5. Include a compelling call-to-action
+
+**HTML Formatting Instructions:**
+1. Use pure HTML with inline CSS only (no external stylesheets)
+2. Font: Arial, sans-serif; neutral, subtle color scheme
+3. Container: max-width 600px with 20px padding
+4. Structure: short paragraphs with bold text for emphasis
+5. Include a professional CTA button styled with:
+   - Solid background color (e.g., #0066cc or similar professional blue)
+   - White text color (#ffffff)
+   - Padding and rounded corners for modern appearance
+   - Link destination: https://github.com/biau95
+6. Use clean spacing and readability best practices
+
+**Output:**
+Return ONLY the raw HTML code without any markdown formatting, code blocks, or explanatory text. The HTML should be production-ready and immediately usable for email sending.
 ```
 
 ---
