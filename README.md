@@ -1,6 +1,6 @@
-# AI-Powered HTML Email Notification Automation
+# Enterprise-Grade AI HTML Email Notification System
 
-An end-to-end automation workflow built with **Make.com**, **Airtable**, and **OpenAI**. It automatically transforms raw database records added to Airtable into beautifully formatted, responsive HTML emails generated dynamically by GPT models and delivers them to recipients.
+A resilient, end-to-end automation workflow built with **Make.com**, **Airtable**, and **OpenAI API**. It validates incoming database entries, handles API failure modes, generates responsive HTML emails dynamically via GPT models, and tracks real-time execution states without system downtime.
 
 ![Dashboard Preview](screenshots/scenario_make.png)
 
@@ -8,24 +8,30 @@ An end-to-end automation workflow built with **Make.com**, **Airtable**, and **O
 
 ## 🚀 Overview & Business Impact
 
-This automation:
-- Monitoring **Airtable** for new or updated records.
-- Sending record metadata to **OpenAI API** with a strictly enforced HTML design system prompt.
-- Dynamically generating responsive, beautifully styled HTML emails with proper typography, CTA buttons, and structured lists.
-- Dispatching the email seamlessly to the intended recipient.
+Sending raw database outputs or using fragile automation scripts leads to poor engagement and unexpected crashes. 
+
+This production-ready system solves these problems by:
+- **Filtering & Guarding:** Querying Airtable for specific statuses while preventing empty-run execution errors.
+- **Pre-API Validation:** Validating email formats via Regex and checking content presence to avoid wasting OpenAI API tokens.
+- **Dynamic HTML Generation:** Forcing LLM output into strict inline CSS for responsive, beautifully formatted emails.
+- **Fault-Tolerant Execution:** Isolating OpenAI API timeouts and 5xx errors to update database states instead of crashing the pipeline.
 
 ---
 
 ## 🛡️ Fault Tolerance & Resilience (Error Handling)
+
 Unlike fragile basic automations, this pipeline incorporates enterprise error-handling strategies:
-Pre-API Data Validation (Cost Saver):
-Implements strict Regex email pattern matching (^[\w-\.]+@([\w-]+\.)+[\w-]{2,}$) and presence checks.
-Invalid records route to a fallback path updating Airtable state to Error - Bad Data, preventing wasted OpenAI API credits.
-API Exception Isolation:
-Error Handlers attached to OpenAI modules trap timeouts or 5xx server errors.
-Automatically flags failed records as Error - OpenAI in Airtable while keeping the pipeline active for subsequent jobs.
-State Management:
-Tracks explicit lifecycle states in Airtable via dedicated status fields (To Send ➔ Sent / Error - Bad Data / Error - OpenAI).
+
+* **Pre-API Data Validation (Cost Saver):**
+  * Implements strict Regex email pattern matching (`^[\w-\.]+@([\w-]+\.)+[\w-]{2,}$`) and presence checks.
+  * Invalid records route to a fallback path updating Airtable state to `Error - Bad Data`, preventing wasted OpenAI API credits.
+
+* **API Exception Isolation:**
+  * Error Handlers attached to OpenAI modules trap timeouts or 5xx server errors.
+  * Automatically flags failed records as `Error - OpenAI` in Airtable while keeping the pipeline active for subsequent jobs.
+
+* **State Management:**
+  * Tracks explicit lifecycle states in Airtable via dedicated status fields (`To Send` ➔ `Sent` / `Error - Bad Data` / `Error - OpenAI`).
 
 ---
 
@@ -108,7 +114,7 @@ Return ONLY the raw HTML code without any markdown formatting, code blocks, or e
 ├── README.md               # Project documentation
 ├── blueprint.json          # Exported Make.com scenario blueprint
 └── screenshots/                 # Screenshots & visual proof
-    ├── scenario-make.png   # Make.com scenario visual
+    ├── scenario_make.png   # Make.com scenario visual
     ├── airtable-base.png   # Sample Airtable schema
 ```
 
