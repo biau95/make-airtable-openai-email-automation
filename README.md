@@ -2,7 +2,7 @@
 
 An end-to-end automation workflow built with **Make.com**, **Airtable**, and **OpenAI**. It automatically transforms raw database records added to Airtable into beautifully formatted, responsive HTML emails generated dynamically by GPT models and delivers them to recipients.
 
-![Dashboard Preview](screenshots/scenario-make.png)
+![Dashboard Preview](screenshots/scenario_make.png)
 
 ---
 
@@ -13,6 +13,19 @@ This automation:
 - Sending record metadata to **OpenAI API** with a strictly enforced HTML design system prompt.
 - Dynamically generating responsive, beautifully styled HTML emails with proper typography, CTA buttons, and structured lists.
 - Dispatching the email seamlessly to the intended recipient.
+
+---
+
+## 🛡️ Fault Tolerance & Resilience (Error Handling)
+Unlike fragile basic automations, this pipeline incorporates enterprise error-handling strategies:
+Pre-API Data Validation (Cost Saver):
+Implements strict Regex email pattern matching (^[\w-\.]+@([\w-]+\.)+[\w-]{2,}$) and presence checks.
+Invalid records route to a fallback path updating Airtable state to Error - Bad Data, preventing wasted OpenAI API credits.
+API Exception Isolation:
+Error Handlers attached to OpenAI modules trap timeouts or 5xx server errors.
+Automatically flags failed records as Error - OpenAI in Airtable while keeping the pipeline active for subsequent jobs.
+State Management:
+Tracks explicit lifecycle states in Airtable via dedicated status fields (To Send ➔ Sent / Error - Bad Data / Error - OpenAI).
 
 ---
 
@@ -28,10 +41,20 @@ This automation:
 ## 📐 Architecture & Workflow
 
 ```text
-┌──────────────┐      ┌──────────────┐      ┌──────────────┐      ┌──────────────┐
-│   Airtable   │      │   Make.com   │      │  OpenAI API  │      │  Email Output│
-│ (New Record) ├─────►│ (Trigger/FC) ├─────►│ (HTML Prompt)├─────►│(HTML Email)  │
-└──────────────┘      └──────────────┘      └──────────────┘      └──────────────┘
+                                  ┌───────────────────┐
+                                  │   Invalid Data    │ ► Set status: Error - Bad Data
+                                  └───────────────────┘
+                                            ▲
+                                            │ (Fallback)
+┌──────────────┐      ┌──────────────┐   ┌──┴──┐      ┌──────────────┐      ┌──────────────┐      ┌──────────────┐
+│   Airtable   │─────►│   Make.com   │──►│Router├────►│  OpenAI API  │─────►│ Email Module │─────►│ Update Base  │
+│(Pending Data)│      │(Filter Match)│   └──┬──┘      │(HTML Prompt) │      │ (Send HTML)  │      │(Status: Sent)│
+└──────────────┘      └──────────────┘      │         └──────┬───────┘      └──────────────┘      └──────────────┘
+                                            │ (Valid Data)   │ (API Failure)
+                                            ▼                ▼
+                                   [Proceed to OpenAI]   ┌───────────────────┐
+                                                         │ Set status: Error │
+                                                         └───────────────────┘
 ```
 
 1. **Trigger (Airtable):** Listens for new entries in a designated view/table.
