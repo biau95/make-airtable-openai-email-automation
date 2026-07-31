@@ -113,7 +113,7 @@ Return ONLY the raw HTML code without any markdown formatting, code blocks, or e
 .
 ├── README.md               # Project documentation
 ├── blueprint.json          # Exported Make.com scenario blueprint
-└── screenshots/                 # Screenshots & visual proof
+└── screenshots/            # Screenshots & visual proof
     ├── scenario_make.png   # Make.com scenario visual
     ├── airtable-base.png   # Sample Airtable schema
 ```
